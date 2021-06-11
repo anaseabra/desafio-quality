@@ -22,6 +22,12 @@ public class RoomDto {
 
     private double squareMeters;
 
+    public RoomDto(String roomName, double roomWidth, double roomLength) {
+        this.roomName = roomName;
+        this.roomWidth = roomWidth;
+        this.roomLength = roomLength;
+    }
+
     public String getRoomName() {
         return roomName;
     }

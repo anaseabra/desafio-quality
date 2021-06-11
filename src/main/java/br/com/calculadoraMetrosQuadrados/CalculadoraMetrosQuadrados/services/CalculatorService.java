@@ -3,6 +3,8 @@ package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.services;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeDto;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HouseResponseDto;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.RoomDto;
+import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.exception.DistrictNotFoundException;
+import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.utils.District;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class CalculatorService {
         houseInformation.setTotalSquareMeters(getTotalSquareMeters(home));
         houseInformation.setBiggestRoom(getBiggestRoom(home));
         houseInformation.setPrice(getPrice(home));
+        houseInformation.setRoomAreas(getRoomAreas(home));
 
         return houseInformation;
 
@@ -32,7 +35,10 @@ public class CalculatorService {
     }
 
     public double getPrice(HomeDto home){
-        return getTotalSquareMeters(home)*home.getPropDistrict().getPricePerSquareMeter();
+
+        District district = District.valueOf(home.getPropDistrict());
+
+        return getTotalSquareMeters(home)*district.getPricePerSquareMeter();
     }
 
     public String getBiggestRoom(HomeDto home){

@@ -1,10 +1,13 @@
 package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos;
 
+import java.util.Map;
+
 public class HouseResponseDto {
 
     private double totalSquareMeters;
     private double price;
     private String biggestRoom;
+    private Map<String, Double> roomAreas;
 
     public double getTotalSquareMeters() {
         return totalSquareMeters;
@@ -28,5 +31,13 @@ public class HouseResponseDto {
 
     public void setBiggestRoom(String biggestRoom) {
         this.biggestRoom = biggestRoom;
+    }
+
+    public Map<String, Double> getRoomAreas() {
+        return roomAreas;
+    }
+
+    public void setRoomAreas(Map<String, Double> roomAreas) {
+        this.roomAreas = roomAreas;
     }
 }

@@ -20,8 +20,8 @@ public class HomeDto {
     private String propName;
 
     @NotNull(message = "Property district is required")
-//    @Size(max = 45, message = "Property district must be a maximum of 45 characters")
-    private District propDistrict;
+    @Size(max = 45, message = "Property district must be a maximum of 45 characters")
+    private String propDistrict;
 
     @Valid
     @NotEmpty(message = "Room list cannot be empty ")
@@ -35,11 +35,11 @@ public class HomeDto {
         this.propName = propName;
     }
 
-    public District getPropDistrict() {
+    public String getPropDistrict() {
         return propDistrict;
     }
 
-    public void setPropDistrict(District propDistrict) {
+    public void setPropDistrict(String propDistrict) {
         this.propDistrict = propDistrict;
     }
 
