@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Service
@@ -36,7 +37,7 @@ public class CalculatorService {
 
     public double getPrice(HomeDto home){
 
-        District district = District.valueOf(home.getPropDistrict());
+        District district = District.valueOf(home.getPropDistrict().toUpperCase(Locale.ROOT));
 
         return getTotalSquareMeters(home)*district.getPricePerSquareMeter();
     }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
-class CalculadoraMetrosQuadradosApplicationTests {
+class CalculatorServiceTests {
 
 	private CalculatorService calculatorService = new CalculatorService();
 
