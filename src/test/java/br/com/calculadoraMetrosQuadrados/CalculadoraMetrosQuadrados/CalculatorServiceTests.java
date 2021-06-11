@@ -1,7 +1,7 @@
 package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados;
 
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeDto;
-import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HouseResponseDto;
+import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeResponseDto;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.RoomDto;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.services.CalculatorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ class CalculatorServiceTests {
 	private CalculatorService calculatorService = new CalculatorService();
 
 	private HomeDto homeDto;
-	private HouseResponseDto houseResponseDto;
+	private HomeResponseDto homeResponseDto;
 	private Map<String, Double> roomAreas;
 
 	@BeforeEach
@@ -42,11 +42,11 @@ class CalculatorServiceTests {
 		roomAreas.put("Quarto", 49.0);
 		roomAreas.put("Cozinha", 25.2);
 
-		houseResponseDto = new HouseResponseDto();
-		houseResponseDto.setPrice(74760.0);
-		houseResponseDto.setTotalSquareMeters(93.45);
-		houseResponseDto.setBiggestRoom("Quarto");
-		houseResponseDto.setRoomAreas(roomAreas);
+		homeResponseDto = new HomeResponseDto();
+		homeResponseDto.setPrice(74760.0);
+		homeResponseDto.setTotalSquareMeters(93.45);
+		homeResponseDto.setBiggestRoom("Quarto");
+		homeResponseDto.setRoomAreas(roomAreas);
 	}
 
 	@Test
@@ -89,8 +89,8 @@ class CalculatorServiceTests {
 	@Test
 	void shouldReturnHouseInformation() {
 
-		HouseResponseDto houseResponse = calculatorService.getHouseInformation(homeDto);
+		HomeResponseDto houseResponse = calculatorService.getHomeInformation(homeDto);
 
-		assertThat(houseResponseDto).usingRecursiveComparison().isEqualTo(houseResponse);
+		assertThat(homeResponseDto).usingRecursiveComparison().isEqualTo(houseResponse);
 	}
 }

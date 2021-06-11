@@ -1,13 +1,8 @@
 package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados;
 
-import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.controllers.CalculatorController;
-import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HouseResponseDto;
-import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.services.CalculatorService;
+import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,39 +24,71 @@ public class CalculatorControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private HouseResponseDto houseResponseDto;
+    private HomeResponseDto homeResponseDto;
     private Map<String, Double> roomAreas;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         roomAreas = new HashMap<>();
-        roomAreas.put("Banheiro", 19.25);
-        roomAreas.put("Quarto", 49.0);
-        roomAreas.put("Cozinha", 25.2);
+        roomAreas.put("Banheiro", 56.0);
+        roomAreas.put("Quarto", 73.5);
+        roomAreas.put("Cozinha", 72.25);
 
-        houseResponseDto = new HouseResponseDto();
-        houseResponseDto.setPrice(74760.0);
-        houseResponseDto.setTotalSquareMeters(93.45);
-        houseResponseDto.setBiggestRoom("Quarto");
-        houseResponseDto.setRoomAreas(roomAreas);
+        homeResponseDto = new HomeResponseDto();
+        homeResponseDto.setPrice(201750.0);
+        homeResponseDto.setTotalSquareMeters(201.75);
+        homeResponseDto.setBiggestRoom("Quarto");
+        homeResponseDto.setRoomAreas(roomAreas);
     }
-
 
     @Test
-    void shouldReturnHouseInformation() {
+    void shouldReturnHouseInformation() throws Exception {
         String request = "{\"propName\": \"Casa de Praia\"," +
-                         "\"propDistrict\": \"Ingleses\"," +
-                         "\"rooms\": [{\"roomName\": \"Quarto\",\"roomWidth\": 7.0, \"roomLenght\": 10.5}," +
-                         "{\"roomName\": \"Cozinha\", \"roomWidth\": 8.5,\"roomLenght\": 8.5}, " +
-                         "{\"roomName\": \"Banheiro\",\"roomWidth\": 14.0,\"roomLenght\": 4.0}" +
-                         "]" +
-                         "}";
+                "\"propDistrict\": \"Ingleses\"," +
+                "\"rooms\": [{\"roomName\": \"Quarto\",\"roomWidth\": 7.0, \"roomLength\": 10.5}," +
+                "{\"roomName\": \"Cozinha\", \"roomWidth\": 8.5,\"roomLength\": 8.5}, " +
+                "{\"roomName\": \"Banheiro\",\"roomWidth\": 14.0,\"roomLength\": 4.0}" +
+                "]" +
+                "}";
+
         this.mockMvc.perform(
                 post("/houseInformation")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(request)).andDo(print()).andExpect(status().isOk())
-                .andExpect()
-
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalSquareMeters").value(201.75))
+                .andExpect(jsonPath("$.price").value(161400.00));
     }
 
+    @Test
+    void shouldThrowMethodArgumentNotValidException() throws Exception {
+        String request = "{\"propName\": \"casa de Praia\"," +
+                "\"propDistrict\": \"Ingleses\"," +
+                "\"rooms\": [{\"roomName\": \"Quarto\",\"roomWidth\": 7.0, \"roomLength\": 10.5}," +
+                "{\"roomName\": \"Cozinha\", \"roomWidth\": 8.5,\"roomLength\": 8.5}, " +
+                "{\"roomName\": \"Banheiro\",\"roomWidth\": 14.0,\"roomLength\": 4.0}" +
+                "]" +
+                "}";
+
+        this.mockMvc.perform(
+                post("/houseInformation")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)).andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentException() throws Exception {
+        String request = "{\"propName\": \"Casa de Praia\"," +
+                "\"propDistrict\": \"Campeche\"," +
+                "\"rooms\": [{\"roomName\": \"Quarto\",\"roomWidth\": 7.0, \"roomLength\": 10.5}," +
+                "{\"roomName\": \"Cozinha\", \"roomWidth\": 8.5,\"roomLength\": 8.5}, " +
+                "{\"roomName\": \"Banheiro\",\"roomWidth\": 14.0,\"roomLength\": 4.0}" +
+                "]" +
+                "}";
+
+        this.mockMvc.perform(
+                post("/houseInformation")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request)).andDo(print()).andExpect(status().isNotFound());
+    }
 }
+

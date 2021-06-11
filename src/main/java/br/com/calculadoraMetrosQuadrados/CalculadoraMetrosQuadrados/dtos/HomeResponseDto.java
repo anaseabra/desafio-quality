@@ -2,7 +2,7 @@ package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos;
 
 import java.util.Map;
 
-public class HouseResponseDto {
+public class HomeResponseDto {
 
     private double totalSquareMeters;
     private double price;

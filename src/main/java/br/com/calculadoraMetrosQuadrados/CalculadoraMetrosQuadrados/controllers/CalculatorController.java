@@ -1,7 +1,7 @@
 package br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.controllers;
 
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeDto;
-import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HouseResponseDto;
+import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.dtos.HomeResponseDto;
 import br.com.calculadoraMetrosQuadrados.CalculadoraMetrosQuadrados.services.CalculatorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class CalculatorController {
     }
 
     @PostMapping()
-    public ResponseEntity<HouseResponseDto> getHouseInformation(@Valid @RequestBody HomeDto homeDto){
-        return ResponseEntity.status(200).body(calculatorService.getHouseInformation(homeDto));
+    public ResponseEntity<HomeResponseDto> getHouseInformation(@Valid @RequestBody HomeDto homeDto){
+        return ResponseEntity.status(200).body(calculatorService.getHomeInformation(homeDto));
     }
 
 
