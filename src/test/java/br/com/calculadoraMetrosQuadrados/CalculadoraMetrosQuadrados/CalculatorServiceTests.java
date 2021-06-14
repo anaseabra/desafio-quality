@@ -57,10 +57,24 @@ class CalculatorServiceTests {
 	}
 
 	@Test
+	void shouldReturnDiffTotalSquareMeters() {
+		double totalSquareMeters = calculatorService.getTotalSquareMeters(homeDto);
+
+		assertNotEquals(83.45, totalSquareMeters);
+	}
+
+	@Test
 	void shouldReturnHomePrice() {
 		double homePrice = calculatorService.getPrice(homeDto);
 
 		assertEquals(74760.0, homePrice);
+	}
+
+	@Test
+	void shouldReturnDiffHomePrice() {
+		double homePrice = calculatorService.getPrice(homeDto);
+
+		assertNotEquals(7760.0, homePrice);
 	}
 
 	@Test()
@@ -80,10 +94,26 @@ class CalculatorServiceTests {
 	}
 
 	@Test
+	void shouldReturnDiffBiggestRoom() {
+		String roomName = calculatorService.getBiggestRoom(homeDto);
+
+		assertNotEquals("Banheiro", roomName);
+	}
+
+	@Test
 	void shouldReturnRoomAreas() {
 		Map<String, Double> rooms = calculatorService.getRoomAreas(homeDto);
 
 		assertEquals(roomAreas, rooms);
+	}
+
+	@Test
+	void shouldReturnDiffRoomAreas() {
+		Map<String, Double> rooms = calculatorService.getRoomAreas(homeDto);
+
+		roomAreas.put("Sala", 50.8);
+
+		assertNotEquals(roomAreas, rooms);
 	}
 
 	@Test

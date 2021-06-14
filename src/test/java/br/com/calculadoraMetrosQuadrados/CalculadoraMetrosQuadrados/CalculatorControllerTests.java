@@ -55,8 +55,8 @@ public class CalculatorControllerTests {
                 post("/houseInformation")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(request)).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalSquareMeters").value(201.75))
-                .andExpect(jsonPath("$.price").value(161400.00));
+                        .andExpect(jsonPath("$.totalSquareMeters").value(201.75))
+                        .andExpect(jsonPath("$.price").value(161400.00));
     }
 
     @Test
@@ -72,7 +72,8 @@ public class CalculatorControllerTests {
         this.mockMvc.perform(
                 post("/houseInformation")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andDo(print()).andExpect(status().isBadRequest());
+                        .content(request)).andDo(print())
+                        .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -88,7 +89,8 @@ public class CalculatorControllerTests {
         this.mockMvc.perform(
                 post("/houseInformation")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(request)).andDo(print()).andExpect(status().isNotFound());
+                        .content(request)).andDo(print())
+                        .andExpect(status().isNotFound());
     }
 }
 
