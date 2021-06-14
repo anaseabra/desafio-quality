@@ -14,10 +14,10 @@ import java.util.Date;
 public class ExceptionControllerHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(DistrictNotFoundException.class)
     @ResponseBody
-    ErrorInfo handleDistrictNotFoundException() {
-        return new ErrorInfo(new Date(), "District not found or does not exist");
+    ErrorInfo handleDistrictNotFoundException(DistrictNotFoundException ex) {
+        return new ErrorInfo(new Date(), ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
